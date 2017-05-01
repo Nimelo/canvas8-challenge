@@ -1,5 +1,6 @@
 package com.canvas8.models;
 
+import com.canvas8.utilis.DateUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -116,22 +117,27 @@ public class User implements UserDetails, Serializable{
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return DateUtils.isAfterCurrentTime(this.expiryDate);
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !locked;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return isAccountNonExpired();
     }
 
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    @PrePersist
+    protected void onCreate(){
+        createdDate = new Date();
     }
 
     public void setPassword(String password) {
