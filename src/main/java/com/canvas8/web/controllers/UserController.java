@@ -1,4 +1,4 @@
-package com.canvas8.web;
+package com.canvas8.web.controllers;
 
 import com.canvas8.models.User;
 import com.canvas8.services.SecurityService;
