@@ -1,7 +1,9 @@
-package com.canvas8.service;
+package com.canvas8.services;
 
+import com.canvas8.dao.CorporateGroupDao;
+import com.canvas8.dao.CorporateGroupDaoImpl;
 import com.canvas8.dao.EmployeeDao;
-import com.canvas8.model.Employee;
+import com.canvas8.models.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +16,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	private EmployeeDao dao;
+
+	@Autowired
+	private CorporateGroupDao xd;
 	
 	public Employee findById(int id) {
 		return dao.findById(id);
@@ -43,6 +48,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	
 	public List<Employee> findAllEmployees() {
+		xd.deleteById(1);
 		return dao.findAllEmployees();
 	}
 

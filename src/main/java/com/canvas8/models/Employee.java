@@ -1,4 +1,4 @@
-package com.canvas8.model;
+package com.canvas8.models;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;

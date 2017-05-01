@@ -1,7 +1,9 @@
 package com.canvas8.controllers;
 
-import com.canvas8.model.Employee;
-import com.canvas8.service.EmployeeService;
+import com.canvas8.models.Employee;
+import com.canvas8.services.EmployeeService;
+import org.hibernate.Hibernate;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -31,7 +33,6 @@ public class AppController {
 	 */
 	@RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
 	public String listEmployees(ModelMap model) {
-
 		List<Employee> employees = service.findAllEmployees();
 		model.addAttribute("employees", employees);
 		return "allemployees";

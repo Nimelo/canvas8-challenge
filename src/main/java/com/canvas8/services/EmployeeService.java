@@ -1,6 +1,6 @@
-package com.canvas8.service;
+package com.canvas8.services;
 
-import com.canvas8.model.Employee;
+import com.canvas8.models.Employee;
 
 import java.util.List;
 

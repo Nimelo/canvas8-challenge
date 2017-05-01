@@ -1,6 +1,6 @@
 package com.canvas8.dao;
 
-import com.canvas8.model.Employee;
+import com.canvas8.models.Employee;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
