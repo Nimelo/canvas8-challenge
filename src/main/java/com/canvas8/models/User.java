@@ -1,6 +1,9 @@
 package com.canvas8.models;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
+import org.hibernate.sql.Delete;
 import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -32,7 +35,7 @@ public class User {
     private String secondName;
 
     @NotNull
-    @Column(name = "USR_EMAIL", nullable = false)
+    @Column(name = "USR_EMAIL", nullable = false, unique = true)
     private String email;
 
     @NotNull
@@ -67,22 +70,16 @@ public class User {
     @JoinColumn(name = "USR_CG_ID", referencedColumnName = "CG_ID")
     private CorporateGroup corporateGroup;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "USER_ROLES",
-            joinColumns = {
-                    @JoinColumn(name = "UR_USER_ID", nullable = false, updatable = false)
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "UR_ROLE_ID", nullable = false, updatable = false)
-            })
-    private Set<Role> roles;
+    @OneToMany(mappedBy = "user")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Set<UserRole> userRoles;
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 
     public int getId() {

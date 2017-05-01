@@ -1,7 +1,11 @@
 package com.canvas8.models;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.Null;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -21,8 +25,17 @@ public class Role {
     @Column(name = "RLS_ROLE", unique = true, nullable = false)
     private String role;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
-    public Set<User> users;
+    @OneToMany(mappedBy = "role")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Set<UserRole> roleUsers = new HashSet<UserRole>();
+
+    public Set<UserRole> getRoleUsers() {
+        return roleUsers;
+    }
+
+    public void setRoleUsers(Set<UserRole> roleUsers) {
+        this.roleUsers = roleUsers;
+    }
 
     public int getId() {
         return id;
@@ -46,13 +59,5 @@ public class Role {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 }
