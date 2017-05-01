@@ -32,7 +32,12 @@
         </form>
 
         <h2>Welcome Admin ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
-
+        <h3>Assigned roles:</h3>
+        <c:forEach items="${roles}" var="role">
+            <tr>
+                <td><c:out value="${role.role}"/></td>
+            </tr>
+        </c:forEach>
     </c:if>
 
 </div>
