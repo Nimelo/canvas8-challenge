@@ -1,4 +1,3 @@
 #import.sql file
-LOCK TABLES `canvas8challenge`.`role` WRITE;
-INSERT INTO `canvas8challenge`.`role` VALUES (1,'ROLE_USER');
-UNLOCK TABLES;
+INSERT INTO `canvas8challenge`.`ROLES`(`RLS_ID`,`RLS_DESCRPTION`,`RLS_ROLE`)VALUES(0,"Admin ROLE","ROLE_ADMIN");
+INSERT INTO `canvas8challenge`.`ROLES`(`RLS_ID`,`RLS_DESCRPTION`,`RLS_ROLE`)VALUES(1,"ORDINARY ROLE","ROLE_USER"); 

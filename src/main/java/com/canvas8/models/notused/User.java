@@ -1,9 +1,9 @@
-package com.canvas8.models.notused;//package com.canvas8.models.notussed;
+//package com.canvas8.models.notused;
 //
 //import org.hibernate.annotations.OnDelete;
 //import org.hibernate.annotations.OnDeleteAction;
 //import org.hibernate.annotations.Type;
-//import org.joda.time.LocalDate;
+//
 //import org.springframework.format.annotation.DateTimeFormat;
 //
 //import javax.persistence.*;

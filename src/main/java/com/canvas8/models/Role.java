@@ -3,32 +3,52 @@ package com.canvas8.models;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * Created by mrnimelo on 30/04/17.
+ */
 @Entity
-@Table(name = "role")
+@Table(name = "ROLES")
 public class Role {
-    private Long id;
-    private String name;
-    private Set<User> users;
+    public final static int ROLE_USER_ID = 1;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "RLS_ID")
+    private int id;
+
+    @Column(name = "RLS_DESCRPTION", nullable = true)
+    private String description;
+
+    @Column(name = "RLS_ROLE", unique = true, nullable = false)
+    private String role;
+
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users;
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    @ManyToMany(mappedBy = "roles")
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public Set<User> getUsers() {
         return users;
     }

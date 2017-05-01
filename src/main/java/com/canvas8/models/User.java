@@ -1,34 +1,99 @@
 package com.canvas8.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.Set;
 
+/**
+ * Created by mrnimelo on 30/04/17.
+ */
 @Entity
-@Table(name = "user")
+@Table(name = "USERS")
 public class User {
-    private Long id;
-    private String username;
-    private String password;
-    private String passwordConfirm;
-    private Set<Role> roles;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "USR_ID", unique = true, nullable = false)
+    private int id;
+
+    @Size(max = 50)
+    @Column(name = "USR_FIRST_NAME")
+    private String firstName;
+
+    @Size(max = 50)
+    @Column(name = "USR_SECOND_NAME")
+    private String secondName;
+
+    @NotNull
+    @Column(name = "USR_EMAIL", unique = true)
+    private String email;
+
+    @NotNull
+    @Column(name = "USR_HASH_PASSWORD", nullable = false)
+    private String password;
+
+    @Transient
+    private String passwordConfirm;
+
+    @Column(name = "USR_LOCKED", columnDefinition = "boolean default false")
+    private Boolean locked = false;
+
+    @Column(name = "USR_ENABLED", columnDefinition = "boolean default true")
+    private Boolean enabled = true;
+
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(name = "USR_CREATED_DATE")
+    private Date createdDate;
+
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(name = "USR_EXPIRY_DATE")
+    private Date expiryDate;
+
+    @Column(name = "USR_POST_CODE")
+    private String postCode;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USR_CG_ID", referencedColumnName = "CG_ID")
+    private CorporateGroup corporateGroup;
+
+    @ManyToMany
+    @JoinTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "US_USER_ID"), inverseJoinColumns = @JoinColumn(name = "US_ROLE_ID"))
+    private Set<Role> roles;
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -39,22 +104,67 @@ public class User {
         this.password = password;
     }
 
-    @Transient
-    public String getPasswordConfirm() {
-        return passwordConfirm;
+    public Boolean getLocked() {
+        return locked;
     }
 
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
+    public void setLocked(Boolean locked) {
+        this.locked = locked;
     }
 
-    @ManyToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
+
+    public CorporateGroup getCorporateGroup() {
+        return corporateGroup;
+    }
+
+    public void setCorporateGroup(CorporateGroup corporateGroup) {
+        this.corporateGroup = corporateGroup;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 }
