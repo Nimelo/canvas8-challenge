@@ -1,6 +1,10 @@
 package com.canvas8.models;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -8,7 +12,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "ROLES")
-public class Role {
+public class Role implements GrantedAuthority, Serializable{
     public final static int ROLE_USER_ID = 1;
 
     @Id
@@ -55,5 +59,11 @@ public class Role {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    @Override
+    @Transient
+    public String getAuthority() {
+        return this.getRole();
     }
 }

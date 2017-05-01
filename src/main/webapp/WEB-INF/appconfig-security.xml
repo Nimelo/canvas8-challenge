@@ -10,7 +10,7 @@
     <http auto-config="true">
         <intercept-url pattern="/" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/welcome" access="hasRole('ROLE_USER')"/>
-        <form-login login-page="/login" default-target-url="/welcome" authentication-failure-url="/login?error" username-parameter="username" password-parameter="password"/>
+        <form-login login-page="/login" default-target-url="/welcome" authentication-failure-handler-ref="customAuthenticationFailureHandler" username-parameter="username" password-parameter="password"/>
         <logout logout-success-url="/login?logout" />
     </http>
 
@@ -20,6 +20,9 @@
         </authentication-provider>
     </authentication-manager>
 
+    <beans:bean id="customAuthenticationFailureHandler" class="com.canvas8.web.security.MappingAuthenticationFailureHandler">
+        <beans:property name="defaultFailureUrl" value="/login?error="></beans:property>
+    </beans:bean>
     <beans:bean id="userDetailsServiceImpl" class="com.canvas8.services.UserDetailsServiceImpl"></beans:bean>
 
     <beans:bean id="encoder"
