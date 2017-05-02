@@ -56,7 +56,7 @@
           </div>
         </div>
         <div class="panel panel-info">
-            <div class="panel-heading"><h2 class="form-heading">${corporateGroup.name} members:</h2><a href="${corporateGroupContextPath}/add/${group.id}/user" class="btn btn-success" role="button">Add new Corporate Member</a></div>
+            <div class="panel-heading"><h2 class="form-heading">${corporateGroup.name} members:</h2><a href="${corporateGroupContextPath}/add/${corporateGroup.id}/user" class="btn btn-success" role="button">Add new Corporate Member</a></div>
                 <div class="panel-body">
                     <table class="table">
                         <tr>
@@ -85,9 +85,9 @@
                                 <c:out value="${user.createdDate}" />
                             </td>
                             <td>
-                                <a href="${corporateGroupContextPath}/view/${group.id}" class="btn btn-info" role="button">View</a>
-                                <a href="${corporateGroupContextPath}/edit/${group.id}" class="btn btn-warning" role="button">Edit</a>
-                                <a href="${corporateGroupContextPath}/delete/${group.id}" class="btn btn-danger" role="button">Delete</a>
+                                <a href="${corporateGroupContextPath}/view/${corporateGroup.id}" class="btn btn-info" role="button">View</a>
+                                <a href="${corporateGroupContextPath}/edit/${corporateGroup.id}" class="btn btn-warning" role="button">Edit</a>
+                                <a href="${corporateGroupContextPath}/delete/${corporateGroup.id}/user/${user.id}" class="btn btn-danger" role="button">Delete</a>
                             </td>
                         </tr>
                         </c:forEach>

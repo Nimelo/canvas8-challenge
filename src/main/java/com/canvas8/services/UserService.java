@@ -14,4 +14,6 @@ public interface UserService {
     User findByUsername(String username);
 
     Page<User> findByCorporateGroupId(CorporateGroup id, Pageable pageable);
+
+    void remove(Integer userId);
 }

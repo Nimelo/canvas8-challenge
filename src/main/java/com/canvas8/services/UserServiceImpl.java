@@ -44,4 +44,11 @@ public class UserServiceImpl implements UserService {
     public Page<User> findByCorporateGroupId(CorporateGroup id, Pageable pageable) {
         return userRepository.findByCorporateGroup(id, pageable);
     }
+
+    @Override
+    public void remove(Integer userId) {
+        if(userRepository.exists(userId)){
+            userRepository.delete(userId);
+        }
+    }
 }

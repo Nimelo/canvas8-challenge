@@ -114,4 +114,12 @@ public class CorporateGroupController {
 
         return "corporate-groups/view";
     }
+
+    @RequestMapping(value = "/delete/{groupId}/user/{userId}", method = RequestMethod.GET)
+    public String view(@PathVariable(value = "groupId") Integer groupId, @PathVariable(value = "userId") Integer userId) {
+
+        userService.remove(userId);
+
+        return "redirect:/corporate-groups/" + groupId + "/view";
+    }
 }
