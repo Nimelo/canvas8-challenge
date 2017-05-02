@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <c:set var="corporateGroupContextPath" value="${contextPath}/corporate-groups"/>
@@ -28,43 +29,73 @@
 <div class="container">
 
     <c:if test="${pageContext.request.userPrincipal.name != null}">
-        <form id="logoutForm" method="POST" action="${contextPath}/logout">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form>
-
         <h2>Welcome ${pageContext.request.userPrincipal.name}</h2>
-        <h3>Corporate Groups:</h3>
-        <table class="table">
-            <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>EMAIL ADDRESS</th>
-                <th>CREATED DATE</th>
-                <th>ACTIONS</th>
-            </tr>
-            <c:forEach items="${corporateGroups}" var="group">
-            <tr>
-                <td>
-                    <c:out value="${group.id}" />
-                </td>
-                <td>
-                    <c:out value="${group.name}" />
-                </td>
-                <td>
-                    <c:out value="${group.email}" />
-                </td>
-                <td>
-                    <c:out value="${group.createdDate}" />
-                </td>
-                <td>
-                    <a href="${corporateGroupContextPath}/view/${group.id}" class="btn btn-info" role="button">View</a>
-                    <a href="${corporateGroupContextPath}/edit/${group.id}" class="btn btn-warning" role="button">Edit</a>
-                    <a href="${corporateGroupContextPath}/delete/${group.id}" class="btn btn-danger" role="button">Delete</a>
-                </td>
-            </tr>
-            </c:forEach>
-        </table>
-        <a href="${corporateGroupContextPath}/add/${group.id}" class="btn btn-success" role="button">Add new Corporate Group</a>
+        <div class="panel panel-info">
+          <div class="panel-heading"><h2 class="form-heading">${corporateGroup.name} details:</h2></div>
+          <div class="panel-body">
+            <form:form method="POST" modelAttribute="corporateGroup" class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="name">Name:</label>
+                     <div class="col-sm-10">
+                        <form:input path="name" type="text" class="form-control" disabled="true"/>
+                     </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="email">Email:</label>
+                    <div class="col-sm-10">
+                        <form:input path="email" type="text" class="form-control" disabled="true"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="createdDate">Created Date:</label>
+                    <div class="col-sm-10">
+                        <form:input path="createdDate" type="text" class="form-control" disabled="true"/>
+                    </div>
+                </div>
+            </form:form>
+          </div>
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading"><h2 class="form-heading">${corporateGroup.name} members:</h2></div>
+                <div class="panel-body">
+                    <table class="table">
+                        <tr>
+                            <th>ID</th>
+                            <th>FIRST NAME</th>
+                            <th>SECOND NAME</th>
+                            <th>EMAIL</th>
+                            <th>CREATE DATE</th>
+                            <th>ACTIONS</th>
+                        </tr>
+                        <c:forEach items="${corporateGroup.users}" var="user">
+                        <tr>
+                            <td>
+                                <c:out value="${user.id}" />
+                            </td>
+                            <td>
+                                <c:out value="${user.firstName}" />
+                            </td>
+                            <td>
+                                <c:out value="${user.secondName}" />
+                            </td>
+                            <td>
+                                <c:out value="${user.email}" />
+                            </td>
+                            <td>
+                                <c:out value="${user.createdDate}" />
+                            </td>
+                            <td>
+                                <a href="${corporateGroupContextPath}/view/${group.id}" class="btn btn-info" role="button">View</a>
+                                <a href="${corporateGroupContextPath}/edit/${group.id}" class="btn btn-warning" role="button">Edit</a>
+                                <a href="${corporateGroupContextPath}/delete/${group.id}" class="btn btn-danger" role="button">Delete</a>
+                            </td>
+                        </tr>
+                        </c:forEach>
+                    </table>
+                    <a href="${corporateGroupContextPath}/add/${group.id}" class="btn btn-success" role="button">Add new Corporate Member</a>
+                </div>
+            </div>
+        </div>
     </c:if>
 
 </div>

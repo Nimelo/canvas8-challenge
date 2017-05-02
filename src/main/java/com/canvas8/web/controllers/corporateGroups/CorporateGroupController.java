@@ -1,10 +1,12 @@
 package com.canvas8.web.controllers.corporateGroups;
 
 import com.canvas8.models.CorporateGroup;
+import com.canvas8.models.User;
 import com.canvas8.repositories.CorporateGroupRepository;
 import com.canvas8.validators.CorporateGroupValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by mrnimelo on 02/05/17.
@@ -89,12 +92,13 @@ public class CorporateGroupController {
     }
 
     @RequestMapping(value = "/view/{id}")
-    public ModelAndView view(@PathVariable(value = "id") Integer id) {
-        ModelAndView modelAndView = new ModelAndView("corporate-groups/view");
+    @Transactional
+    public String view(@PathVariable(value = "id") Integer id, Model model) {
 
-        CorporateGroup corporateGroup = corporateGroupRepository.getOne(id);
-        modelAndView.addObject("corporateGroup", corporateGroup);
+        CorporateGroup corporateGroup = corporateGroupRepository.findOne(id);
+        Set<User> users = corporateGroup.getUsers();
+        model.addAttribute("corporateGroup", corporateGroup);
 
-        return modelAndView;
+        return "corporate-groups/view";
     }
 }
