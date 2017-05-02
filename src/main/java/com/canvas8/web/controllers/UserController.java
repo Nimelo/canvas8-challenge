@@ -1,6 +1,6 @@
 package com.canvas8.web.controllers;
 
-import com.canvas8.services.UserService;
+import com.canvas8.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;

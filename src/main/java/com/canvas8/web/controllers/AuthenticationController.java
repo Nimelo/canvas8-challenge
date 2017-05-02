@@ -1,8 +1,8 @@
 package com.canvas8.web.controllers;
 
 import com.canvas8.models.User;
-import com.canvas8.services.SecurityService;
-import com.canvas8.services.UserService;
+import com.canvas8.services.security.SecurityService;
+import com.canvas8.services.user.UserService;
 import com.canvas8.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

@@ -1,4 +1,4 @@
-package com.canvas8.services;
+package com.canvas8.services.security;
 
 public interface SecurityService {
     String findLoggedInUsername();

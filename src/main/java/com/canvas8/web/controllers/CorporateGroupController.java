@@ -2,7 +2,7 @@ package com.canvas8.web.controllers;
 
 import com.canvas8.models.CorporateGroup;
 import com.canvas8.models.User;
-import com.canvas8.services.UserService;
+import com.canvas8.services.user.UserService;
 import com.canvas8.services.corporateGroups.CorporateGroupServiceImpl;
 import com.canvas8.validators.CorporateGroupValidator;
 import org.springframework.beans.factory.annotation.Autowired;

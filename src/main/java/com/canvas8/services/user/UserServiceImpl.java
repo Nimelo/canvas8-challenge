@@ -1,4 +1,4 @@
-package com.canvas8.services;
+package com.canvas8.services.user;
 
 import com.canvas8.models.CorporateGroup;
 import com.canvas8.models.Role;
@@ -12,7 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service

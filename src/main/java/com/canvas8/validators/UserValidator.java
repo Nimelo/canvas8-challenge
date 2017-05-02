@@ -1,7 +1,7 @@
 package com.canvas8.validators;
 
 import com.canvas8.models.User;
-import com.canvas8.services.UserService;
+import com.canvas8.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

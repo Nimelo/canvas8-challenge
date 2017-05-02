@@ -26,7 +26,7 @@
     <beans:bean id="customAuthenticationFailureHandler" class="com.canvas8.web.security.MappingAuthenticationFailureHandler">
         <beans:property name="defaultFailureUrl" value="/login?error="></beans:property>
     </beans:bean>
-    <beans:bean id="userDetailsServiceImpl" class="com.canvas8.services.UserDetailsServiceImpl"></beans:bean>
+    <beans:bean id="userDetailsServiceImpl" class="com.canvas8.services.user.UserDetailsServiceImpl"></beans:bean>
 
     <beans:bean id="encoder"
           class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">

@@ -1,4 +1,4 @@
-package com.canvas8.services;
+package com.canvas8.services.user;
 
 import com.canvas8.models.Role;
 import com.canvas8.repositories.UserRepository;
