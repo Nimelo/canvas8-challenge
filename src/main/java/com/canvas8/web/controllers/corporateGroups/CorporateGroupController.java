@@ -2,10 +2,15 @@ package com.canvas8.web.controllers.corporateGroups;
 
 import com.canvas8.models.CorporateGroup;
 import com.canvas8.repositories.CorporateGroupRepository;
+import com.canvas8.validators.CorporateGroupValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -19,6 +24,9 @@ public class CorporateGroupController {
 
     @Autowired
     CorporateGroupRepository corporateGroupRepository;
+
+    @Autowired
+    CorporateGroupValidator corporateGroupValidator;
 
     @RequestMapping(value = "/list")
     public ModelAndView list() {
@@ -36,16 +44,26 @@ public class CorporateGroupController {
             corporateGroupRepository.delete(id);
         }
 
-        return "redirect:corporate-groups/list";
+        return "redirect:/corporate-groups/list";
     }
 
     @RequestMapping(value = "/add")
-    public ModelAndView add() {
-        ModelAndView modelAndView = new ModelAndView("corporate-groups/add");
+    public String add(Model model) {
+        model.addAttribute("corporateGroup", new CorporateGroup());
+        return "corporate-groups/add";
+    }
 
-        modelAndView.addObject("corporateGroup", new CorporateGroup());
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String addPost(@ModelAttribute("corporateGroup") CorporateGroup corporateGroup, BindingResult bindingResult, Model model) {
+        corporateGroupValidator.validate(corporateGroup, bindingResult);
 
-        return modelAndView;
+        if(bindingResult.hasErrors()){
+            return "corporate-groups/add";
+        }
+
+        corporateGroupRepository.save(corporateGroup);
+
+        return "redirect:/corporate-groups/list";
     }
 
     @RequestMapping(value = "/edit/{id}")

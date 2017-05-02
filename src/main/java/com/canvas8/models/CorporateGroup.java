@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "CORPORATE_GROUPS")
-public class CorporateGroup {
+public class CorporateGroup implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CG_ID", unique = true, nullable = false)
@@ -36,6 +37,11 @@ public class CorporateGroup {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "corporateGroup")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<User> users;
+
+    @PrePersist
+    protected void onCreate(){
+        createdDate = new Date();
+    }
 
     public int getId() {
         return id;
