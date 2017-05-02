@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <c:set var="corporateGroupContextPath" value="${contextPath}/corporate-groups"/>
@@ -28,43 +29,46 @@
 <div class="container">
 
     <c:if test="${pageContext.request.userPrincipal.name != null}">
-        <form id="logoutForm" method="POST" action="${contextPath}/logout">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form>
-
         <h2>Welcome ${pageContext.request.userPrincipal.name}</h2>
-        <h3>Corporate Groups:</h3>
-        <table class="table">
-            <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>EMAIL ADDRESS</th>
-                <th>CREATED DATE</th>
-                <th>ACTIONS</th>
-            </tr>
-            <c:forEach items="${corporateGroups}" var="group">
-            <tr>
-                <td>
-                    <c:out value="${group.id}" />
-                </td>
-                <td>
-                    <c:out value="${group.name}" />
-                </td>
-                <td>
-                    <c:out value="${group.email}" />
-                </td>
-                <td>
-                    <c:out value="${group.createdDate}" />
-                </td>
-                <td>
-                    <a href="${corporateGroupContextPath}/view/${group.id}" class="btn btn-info" role="button">View</a>
-                    <a href="${corporateGroupContextPath}/edit/${group.id}" class="btn btn-warning" role="button">Edit</a>
-                    <a href="${corporateGroupContextPath}/delete/${group.id}" class="btn btn-danger" role="button">Delete</a>
-                </td>
-            </tr>
-            </c:forEach>
-        </table>
-        <a href="${corporateGroupContextPath}/add/${group.id}" class="btn btn-success" role="button">Add new Corporate Group</a>
+        <div class="panel panel-warning">
+          <div class="panel-heading"><h2 class="form-heading">Edit: ${corporateGroup.name}</h2></div>
+          <div class="panel-body">
+            <form:form method="POST" modelAttribute="corporateGroup" class="form-horizontal" action="${corporateGroupContextPath}/edit">
+                <form:input path="id" type="hidden"/>
+                <form:input path="createdDate" type="hidden"/>
+                <spring:bind path="name">
+                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <label class="control-label col-sm-2" for="name">Name:</label>
+                         <div class="col-sm-10">
+                            <form:input path="name" type="text" class="form-control" placeholder="Corporate Group" autofocus="true"/>
+                            <form:errors path="name" class="control-label"></form:errors>
+                         </div>
+                    </div>
+                </spring:bind>
+                <spring:bind path="email">
+                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <label class="control-label col-sm-2" for="email">Email:</label>
+                        <div class="col-sm-10">
+                            <form:input path="email" type="text" class="form-control" placeholder="email@domain"/>
+                            <form:errors path="email" class="control-label"></form:errors>
+                        </div>
+                    </div>
+                </spring:bind>
+
+                <div class="form-group">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <div class="col-sm-offset-4 row">
+                        <div class="col col-sm-4">
+                            <a href="${corporateGroupContextPath}/list" class="btn btn-lg btn-danger btn-block" role="button">Cancel (Go to List)</a>
+                        </div>
+                        <div class="col col-sm-4">
+                            <button class="btn btn-lg btn-success btn-block" type="submit">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </form:form>
+          </div>
+        </div>
     </c:if>
 
 </div>

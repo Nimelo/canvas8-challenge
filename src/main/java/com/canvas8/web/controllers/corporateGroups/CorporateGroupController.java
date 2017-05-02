@@ -67,13 +67,25 @@ public class CorporateGroupController {
     }
 
     @RequestMapping(value = "/edit/{id}")
-    public ModelAndView edit(@PathVariable(value = "id") Integer id) {
-        ModelAndView modelAndView = new ModelAndView("corporate-groups/edit");
+    public String edit(@PathVariable(value = "id") Integer id, Model model) {
 
-        CorporateGroup corporateGroup = corporateGroupRepository.getOne(id);
-        modelAndView.addObject("corporateGroup", corporateGroup);
+        CorporateGroup corporateGroup = corporateGroupRepository.findOne(id);
+        model.addAttribute("corporateGroup", corporateGroup);
 
-        return modelAndView;
+        return "corporate-groups/edit";
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String editPost(@ModelAttribute("corporateGroup") CorporateGroup corporateGroup, BindingResult bindingResult, Model model) {
+        corporateGroupValidator.validate(corporateGroup, bindingResult);
+
+        if(bindingResult.hasErrors()){
+            return "corporate-groups/edit";
+        }
+
+        corporateGroupRepository.save(corporateGroup);
+
+        return "redirect:/corporate-groups/list";
     }
 
     @RequestMapping(value = "/view/{id}")
