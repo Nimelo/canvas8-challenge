@@ -1,7 +1,6 @@
 package com.canvas8.models;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,7 +11,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "ROLES")
-public class Role implements GrantedAuthority, Serializable{
+public class Role implements GrantedAuthority, Serializable {
     public final static int ROLE_USER_ID = 1;
 
     @Id
@@ -28,6 +27,13 @@ public class Role implements GrantedAuthority, Serializable{
 
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
+
+    @PreRemove
+    protected void preRemove(){
+        for (User user : getUsers()) {
+            user.getRoles().remove(this);
+        }
+    }
 
     public int getId() {
         return id;

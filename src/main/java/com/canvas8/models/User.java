@@ -18,7 +18,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "USERS")
-public class User implements UserDetails, Serializable{
+public class User implements UserDetails, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,8 +66,17 @@ public class User implements UserDetails, Serializable{
     private CorporateGroup corporateGroup;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "US_USER_ID"), inverseJoinColumns = @JoinColumn(name = "US_ROLE_ID"))
+    @JoinTable(name = "USER_ROLES",
+            joinColumns = @JoinColumn(name = "US_USER_ID",
+                    foreignKey = @ForeignKey(name = "FK_US_USER_ID")),
+            inverseJoinColumns = @JoinColumn(name = "US_ROLE_ID"),
+            inverseForeignKey = @ForeignKey(name = "FK_US_ROLE_ID"))
     private Set<Role> roles;
+
+    @PreRemove
+    private void preRemove() {
+        roles = null;
+    }
 
     public int getId() {
         return id;
@@ -136,7 +145,7 @@ public class User implements UserDetails, Serializable{
     }
 
     @PrePersist
-    protected void onCreate(){
+    protected void onCreate() {
         createdDate = new Date();
     }
 

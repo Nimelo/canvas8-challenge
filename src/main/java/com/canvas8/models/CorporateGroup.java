@@ -34,8 +34,8 @@ public class CorporateGroup implements Serializable{
     @Column(name = "CG_CREATED_DATE", nullable = false)
     private Date createdDate;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "corporateGroup")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "corporateGroup", cascade = CascadeType.REMOVE)
+    //@OnDelete(action = OnDeleteAction.CASCADE)
     private Set<User> users;
 
     @PrePersist
