@@ -1,8 +1,7 @@
-package com.canvas8.web.controllers.corporateGroups;
+package com.canvas8.web.controllers;
 
 import com.canvas8.models.CorporateGroup;
 import com.canvas8.models.User;
-import com.canvas8.repositories.CorporateGroupRepository;
 import com.canvas8.services.UserService;
 import com.canvas8.services.corporateGroups.CorporateGroupServiceImpl;
 import com.canvas8.validators.CorporateGroupValidator;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by mrnimelo on 02/05/17.
@@ -69,7 +66,7 @@ public class CorporateGroupController {
     public String addPost(@ModelAttribute("corporateGroup") CorporateGroup corporateGroup, BindingResult bindingResult, Model model) {
         corporateGroupValidator.validate(corporateGroup, bindingResult);
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "corporate-groups/add";
         }
 
@@ -91,7 +88,7 @@ public class CorporateGroupController {
     public String editPost(@ModelAttribute("corporateGroup") CorporateGroup corporateGroup, BindingResult bindingResult, Model model) {
         corporateGroupValidator.validate(corporateGroup, bindingResult);
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "corporate-groups/edit";
         }
 
@@ -113,13 +110,5 @@ public class CorporateGroupController {
         model.addAttribute("endIndex", users.getTotalPages() - 1);
 
         return "corporate-groups/view";
-    }
-
-    @RequestMapping(value = "/delete/{groupId}/user/{userId}", method = RequestMethod.GET)
-    public String view(@PathVariable(value = "groupId") Integer groupId, @PathVariable(value = "userId") Integer userId) {
-
-        userService.remove(userId);
-
-        return "redirect:/corporate-groups/" + groupId + "/view";
     }
 }

@@ -12,6 +12,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -52,6 +54,7 @@
                         <form:input path="createdDate" type="text" class="form-control" disabled="true"/>
                     </div>
                 </div>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             </form:form>
           </div>
         </div>
@@ -87,7 +90,7 @@
                             <td>
                                 <a href="${corporateGroupContextPath}/view/${corporateGroup.id}" class="btn btn-info" role="button">View</a>
                                 <a href="${corporateGroupContextPath}/edit/${corporateGroup.id}" class="btn btn-warning" role="button">Edit</a>
-                                <a href="${corporateGroupContextPath}/delete/${corporateGroup.id}/user/${user.id}" class="btn btn-danger" role="button">Delete</a>
+                                <button class="btn btn-danger delete-user" dbid="${user.id}">Delete</button>
                             </td>
                         </tr>
                         </c:forEach>
@@ -126,5 +129,6 @@
 <!-- /container -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+<script src="${contextPath}/resources/js/corporate-groups/view.js"></script>
 </body>
 </html>
