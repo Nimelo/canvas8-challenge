@@ -1,14 +1,18 @@
 package com.canvas8.services;
 
+import com.canvas8.models.CorporateGroup;
 import com.canvas8.models.Role;
 import com.canvas8.repositories.RoleRepository;
 import com.canvas8.repositories.UserRepository;
 import com.canvas8.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -34,5 +38,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUsername(String username) {
         return userRepository.findByEmail(username);
+    }
+
+    @Override
+    public Page<User> findByCorporateGroupId(CorporateGroup id, Pageable pageable) {
+        return userRepository.findByCorporateGroup(id, pageable);
     }
 }

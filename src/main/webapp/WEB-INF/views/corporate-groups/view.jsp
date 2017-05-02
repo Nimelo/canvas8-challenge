@@ -56,7 +56,7 @@
           </div>
         </div>
         <div class="panel panel-info">
-            <div class="panel-heading"><h2 class="form-heading">${corporateGroup.name} members:</h2></div>
+            <div class="panel-heading"><h2 class="form-heading">${corporateGroup.name} members:</h2><a href="${corporateGroupContextPath}/add/${group.id}/user" class="btn btn-success" role="button">Add new Corporate Member</a></div>
                 <div class="panel-body">
                     <table class="table">
                         <tr>
@@ -67,7 +67,7 @@
                             <th>CREATE DATE</th>
                             <th>ACTIONS</th>
                         </tr>
-                        <c:forEach items="${corporateGroup.users}" var="user">
+                        <c:forEach items="${users.content}" var="user">
                         <tr>
                             <td>
                                 <c:out value="${user.id}" />
@@ -92,7 +92,31 @@
                         </tr>
                         </c:forEach>
                     </table>
-                    <a href="${corporateGroupContextPath}/add/${group.id}" class="btn btn-success" role="button">Add new Corporate Member</a>
+                    <nav aria-label="Page navigation">
+                      <ul class="pagination pagination-lg">
+                        <li>
+                          <a href="?page=0" aria-label="First">
+                            <span aria-hidden="true">&laquo;&laquo;</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="?page=${pageNumber == 0 ? 0 : pageNumber - 1}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                        <li class="active"><a href="?page=${pageNumber}"><span><c:out value="${pageNumber + 1}"/></span></a></li>
+                        <li>
+                          <a href="?page=${pageNumber >= endIndex ? endIndex : pageNumber + 1}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="?page=${endIndex}" aria-label="last">
+                            <span aria-hidden="true">&raquo;&raquo;</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
                 </div>
             </div>
         </div>

@@ -3,8 +3,14 @@ package com.canvas8.web.controllers.corporateGroups;
 import com.canvas8.models.CorporateGroup;
 import com.canvas8.models.User;
 import com.canvas8.repositories.CorporateGroupRepository;
+import com.canvas8.services.UserService;
+import com.canvas8.services.corporateGroups.CorporateGroupServiceImpl;
 import com.canvas8.validators.CorporateGroupValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -22,11 +28,16 @@ import java.util.Set;
  * Created by mrnimelo on 02/05/17.
  */
 @Controller
+@Transactional
 @RequestMapping(value = "/corporate-groups")
 public class CorporateGroupController {
+    private static Integer MAX_PAGING_SIZE_FOR_USERS = 10;
 
     @Autowired
-    CorporateGroupRepository corporateGroupRepository;
+    CorporateGroupServiceImpl corporateGroupService;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     CorporateGroupValidator corporateGroupValidator;
@@ -35,17 +46,15 @@ public class CorporateGroupController {
     public ModelAndView list() {
         ModelAndView modelAndView = new ModelAndView("corporate-groups/list");
 
-        List<CorporateGroup> all = corporateGroupRepository.findAll();
+        List<CorporateGroup> all = corporateGroupService.findAll();
         modelAndView.addObject("corporateGroups", all);
 
         return modelAndView;
     }
 
-    @RequestMapping(value = "/delete/{id}")
+    @RequestMapping(value = "/{id}/delete")
     public String delete(@PathVariable(value = "id") Integer id) {
-        if(corporateGroupRepository.exists(id)){
-            corporateGroupRepository.delete(id);
-        }
+        corporateGroupService.deleteIfExist(id);
 
         return "redirect:/corporate-groups/list";
     }
@@ -64,15 +73,15 @@ public class CorporateGroupController {
             return "corporate-groups/add";
         }
 
-        corporateGroupRepository.save(corporateGroup);
+        corporateGroupService.save(corporateGroup);
 
         return "redirect:/corporate-groups/list";
     }
 
-    @RequestMapping(value = "/edit/{id}")
+    @RequestMapping(value = "/{id}/edit")
     public String edit(@PathVariable(value = "id") Integer id, Model model) {
 
-        CorporateGroup corporateGroup = corporateGroupRepository.findOne(id);
+        CorporateGroup corporateGroup = corporateGroupService.findOne(id);
         model.addAttribute("corporateGroup", corporateGroup);
 
         return "corporate-groups/edit";
@@ -86,18 +95,22 @@ public class CorporateGroupController {
             return "corporate-groups/edit";
         }
 
-        corporateGroupRepository.save(corporateGroup);
+        corporateGroupService.save(corporateGroup);
 
         return "redirect:/corporate-groups/list";
     }
 
-    @RequestMapping(value = "/view/{id}")
-    @Transactional
-    public String view(@PathVariable(value = "id") Integer id, Model model) {
+    @RequestMapping(value = "/{id}/view")
+    public String view(@PathVariable(value = "id") Integer id, Model model, Pageable pageable) {
 
-        CorporateGroup corporateGroup = corporateGroupRepository.findOne(id);
-        Set<User> users = corporateGroup.getUsers();
+        CorporateGroup corporateGroup = corporateGroupService.findOne(id);
+
+        PageRequest adjustedPagable = new PageRequest(pageable.getPageNumber(), MAX_PAGING_SIZE_FOR_USERS, pageable.getSort());
+        Page<User> users = userService.findByCorporateGroupId(corporateGroup, adjustedPagable);
         model.addAttribute("corporateGroup", corporateGroup);
+        model.addAttribute("users", users);
+        model.addAttribute("pageNumber", adjustedPagable.getPageNumber());
+        model.addAttribute("endIndex", users.getTotalPages() - 1);
 
         return "corporate-groups/view";
     }

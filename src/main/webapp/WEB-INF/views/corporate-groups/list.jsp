@@ -57,14 +57,14 @@
                     <c:out value="${group.createdDate}" />
                 </td>
                 <td>
-                    <a href="${corporateGroupContextPath}/view/${group.id}" class="btn btn-info" role="button">View</a>
-                    <a href="${corporateGroupContextPath}/edit/${group.id}" class="btn btn-warning" role="button">Edit</a>
-                    <a href="${corporateGroupContextPath}/delete/${group.id}" class="btn btn-danger" role="button">Delete</a>
+                    <a href="${corporateGroupContextPath}/${group.id}/view" class="btn btn-info" role="button">View</a>
+                    <a href="${corporateGroupContextPath}/${group.id}/edit" class="btn btn-warning" role="button">Edit</a>
+                    <a href="${corporateGroupContextPath}/${group.id}/delete" class="btn btn-danger" role="button">Delete</a>
                 </td>
             </tr>
             </c:forEach>
         </table>
-        <a href="${corporateGroupContextPath}/add/${group.id}" class="btn btn-success" role="button">Add new Corporate Group</a>
+        <a href="${corporateGroupContextPath}/${group.id}/add" class="btn btn-success" role="button">Add new Corporate Group</a>
     </c:if>
 
 </div>
