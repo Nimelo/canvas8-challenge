@@ -1,1 +1,1 @@
-"# My project's README" 
+This project was a developer tech challenge prepared by [canvas8 company](https://www.canvas8.com/).
