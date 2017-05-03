@@ -7,12 +7,12 @@
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <http auto-config="true">
+    <http use-expressions="true">
         <access-denied-handler error-page="/403" />
-        <intercept-url pattern="/corporate-groups/*" access="isFullyAuthenticated() and hasRole('ROLE_USER')"/>
-        <intercept-url pattern="/" access="isFullyAuthenticated() and hasRole('ROLE_USER')"/>
-        <intercept-url pattern="/admin/*" access="isFullyAuthenticated() and hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/welcome" access="isFullyAuthenticated() and hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/corporate-groups/**" access="hasRole('USER')"/>
+        <intercept-url pattern="/admin/**" access="hasRole('ADMIN')"/>
+        <intercept-url pattern="/" access="hasRole('USER')"/>
+        <intercept-url pattern="/welcome" access="hasRole('USER')"/>
         <form-login login-page="/login" default-target-url="/welcome" authentication-failure-handler-ref="customAuthenticationFailureHandler" username-parameter="username" password-parameter="password"/>
         <logout logout-success-url="/login?logout" />
     </http>
