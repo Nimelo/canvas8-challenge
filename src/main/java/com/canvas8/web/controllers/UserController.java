@@ -64,6 +64,7 @@ public class UserController {
         user.setCorporateGroup(corporateGroup);
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("editMode", user.getId() != 0);
             return "users/add-edit";
         }
 

@@ -13,6 +13,9 @@ public class UserValidator implements Validator {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private EmailValidator emailValidator;
+
     @Override
     public boolean supports(Class<?> aClass) {
         return User.class.equals(aClass);
@@ -23,6 +26,10 @@ public class UserValidator implements Validator {
         User user = (User) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
+        if(!emailValidator.validate(user.getEmail())){
+            errors.rejectValue("email", "Email.format");
+        }
+
         if (user.getEmail().length() < 6 || user.getEmail().length() > 32) {
             errors.rejectValue("email", "Size.userForm.email");
         }

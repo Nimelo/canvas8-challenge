@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<%@ include file="../header.jsp" %>
+<%@ include file="header.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,13 +27,17 @@
 <div class="container">
 
     <c:if test="${pageContext.request.userPrincipal.name != null}">
-        <h2>Welcome Admin ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
-        <h3>Assigned roles:</h3>
-        <c:forEach items="${roles}" var="role">
-            <tr>
-                <td><c:out value="${role.role}"/></td>
-            </tr>
-        </c:forEach>
+        <div class="panel panel-info">
+          <div class="panel-heading">This is admin side!</div>
+          <div class="panel-body">
+            <div>Your roles are:</div>
+            <c:forEach items="${roles}" var="role">
+                <tr>
+                    <td><c:out value="${role.role}"/></td>
+                </tr>
+            </c:forEach>
+          </div>
+        </div>
     </c:if>
 
 </div>

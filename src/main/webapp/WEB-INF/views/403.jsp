@@ -6,18 +6,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Welcome to Admin Side</title>
+    <title>403</title>
 </head>
 <body>
 <div class="container">
 
     <c:if test="${pageContext.request.userPrincipal.name != null}">
-        <h3>Sorry but you do not have required role. Your roles are:</h3>
-        <c:forEach items="${roles}" var="role">
-            <tr>
-                <td><c:out value="${role.role}"/></td>
-            </tr>
-        </c:forEach>
+        <div class="panel panel-danger">
+          <div class="panel-heading">Handled 403</div>
+          <div class="panel-body">
+            <div>Your roles are:</div>
+            <c:forEach items="${roles}" var="role">
+                <tr>
+                    <td><c:out value="${role.role}"/></td>
+                </tr>
+            </c:forEach>
+          </div>
+        </div>
     </c:if>
     <c:if test="${pageContext.request.userPrincipal.name == null}">
         <div>"${msg}"</div>

@@ -87,7 +87,7 @@ public class CorporateGroupController {
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String editPost(@ModelAttribute("corporateGroup") CorporateGroup corporateGroup, BindingResult bindingResult, Model model) {
-        corporateGroupValidator.validateWithoutName(corporateGroup, bindingResult);
+        corporateGroupValidator.validate(corporateGroup, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "corporate-groups/edit";

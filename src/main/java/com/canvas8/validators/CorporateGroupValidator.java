@@ -16,6 +16,9 @@ public class CorporateGroupValidator implements Validator {
     @Autowired
     CorporateGroupRepository corporateGroupRepository;
 
+    @Autowired
+    EmailValidator emailValidator;
+
     @Override
     public boolean supports(Class<?> aClass) {
         return CorporateGroup.class.equals(aClass);
@@ -23,15 +26,20 @@ public class CorporateGroupValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        CorporateGroup corporateGroup = (CorporateGroup)o;
+        CorporateGroup corporateGroup = (CorporateGroup) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty");
-        if(corporateGroupRepository.findByName(corporateGroup.getName()) != null){
-            errors.rejectValue("name", "Duplicate.corporateGroupForm.name");
+        CorporateGroup dbGroup = corporateGroupRepository.findByName(corporateGroup.getName());
+        if (dbGroup != null) {
+            if (dbGroup.getId() != corporateGroup.getId()) {
+                errors.rejectValue("name", "Duplicate.corporateGroupForm.name");
+            }
         }
-    }
 
-    public void validateWithoutName(Object o, Errors erros){
-
+        if (corporateGroup.getEmail() != null && !corporateGroup.getEmail().isEmpty()) {
+            if (!emailValidator.validate(corporateGroup.getEmail())) {
+                errors.rejectValue("email", "Email.format");
+            }
+        }
     }
 }

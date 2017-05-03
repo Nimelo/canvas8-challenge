@@ -44,6 +44,9 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
+    <bean id="emailValidator"
+          class="com.canvas8.validators.EmailValidator"/>
+
     <!-- Enable annotation driven transaction management -->
     <tx:annotation-driven/>
 

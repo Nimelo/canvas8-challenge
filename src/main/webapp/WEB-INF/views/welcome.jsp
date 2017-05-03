@@ -51,7 +51,7 @@
                 <ul>
                   <li>
                       There was no specification about who should be able to edit which properties of groups and members.
-                      It was assumed that only users that have role ROLE_USER will be avalaible to do it.
+                      It was assumed that only users that have role ROLE_USER will be available to do it.
                       The only restriction for password for already added user - there is no way to do this.
                    </li>
                   <li>
@@ -64,6 +64,10 @@
                   </li>
                   <li>
                       In terms of previous bullet point validation of the forms is also very simple but it's prepared to extensions.
+                  </li>
+                  <li>
+                       Query that searches for user returns also users that have nulls in database fields.
+                       It is an assumption that was made with the overall nullable objects in database.
                   </li>
                 </ul>
               </div>
