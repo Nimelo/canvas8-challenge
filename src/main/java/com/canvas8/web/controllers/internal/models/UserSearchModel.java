@@ -1,6 +1,9 @@
 package com.canvas8.web.controllers.internal.models;
 
+import com.canvas8.models.CorporateGroup;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by mrnimelo on 03/05/17.
@@ -9,7 +12,7 @@ public class UserSearchModel implements Serializable{
     private String firstName;
     private String secondName;
     private String email;
-    private Integer corporateGroupId;
+    private int corporateGroupId;
 
     public String getFirstName() {
         return firstName;
@@ -35,11 +38,11 @@ public class UserSearchModel implements Serializable{
         this.email = email;
     }
 
-    public Integer getCorporateGroupId() {
+    public int getCorporateGroupId() {
         return corporateGroupId;
     }
 
-    public void setCorporateGroupId(Integer corporateGroupId) {
+    public void setCorporateGroupId(int corporateGroupId) {
         this.corporateGroupId = corporateGroupId;
     }
 }

@@ -82,13 +82,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public String search(@ModelAttribute("searchQuery") UserSearchModel userSearchModel, @ModelAttribute("corporateGroups") ArrayList<CorporateGroup> corporateGroups, Model model) {
+    public String search(@ModelAttribute("searchQuery") UserSearchModel userSearchModel, Model model) {
 
         List<User> result = userService.findByFirstNameAndSecondNameAndEmailAndCorporateGroupId(
                 userSearchModel.getFirstName(),
                 userSearchModel.getSecondName(),
                 userSearchModel.getEmail(),
                 userSearchModel.getCorporateGroupId());
+        List<CorporateGroup> corporateGroups = corporateGroupService.findAll();
 
         model.addAttribute("searchQuery", userSearchModel);
         model.addAttribute("corporateGroups", corporateGroups);

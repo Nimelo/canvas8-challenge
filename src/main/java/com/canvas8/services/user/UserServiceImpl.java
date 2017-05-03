@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
         secondName = StringUtils.addDBLikeParamAttributes(secondName);
         email = StringUtils.addDBLikeParamAttributes(email);
 
-        if (corporateGroupId == null) {
+        if (corporateGroupId == null || corporateGroupId.equals(0)) {
             return userRepository.findByFirstNameAndSecondNameAndEmail(firstName, secondName, email);
         }else{
             return userRepository.findByFirstNameAndSecondNameAndEmailAndCorporateGroupId(firstName, secondName, email, corporateGroupId);

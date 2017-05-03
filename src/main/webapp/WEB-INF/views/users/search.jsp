@@ -29,23 +29,34 @@
                     </td>
                     <td>
                         <div class="">
-                            <form:input path="secondName" type="text" class="form-control" placeholder="Second name" autofocus="true"/>
+                            <form:input path="secondName" type="text" class="form-control" placeholder="Second name"/>
                         </div>
                     </td>
                     <td>
                         <div class="">
-                            <form:input path="email" type="text" class="form-control" placeholder="Email" autofocus="true"/>
+                            <form:input path="email" type="text" class="form-control" placeholder="Email"/>
                         </div>
                     </td>
                     <td>
                         <div class="">
-                            <select class="form-control">
-                                <option value="">--</option>
+                            <form:input path="corporateGroupId" class="hidden"/>
+                            <select id="corporateGroups" class="form-control" onchange="corporateGroupOnClickHandler()">
+                                <option value="0" label="All"/>
                                 <c:forEach items="${corporateGroups}" var="group">
-                                   <option value="${group.id}">${group.name}</option>
+                                    <option value="${group.id}" label="${group.name}"/>
                                 </c:forEach>
                             </select>
                         </div>
+                        <script type="text/javascript">
+                            $(function(){
+                                var value = $('#corporateGroupId').val();
+                                $('#corporateGroups option[value=' + value + ']').attr('selected','selected');
+                            });
+                           function corporateGroupOnClickHandler() {
+                            var selectedValue = $('#corporateGroups').find(':selected').val();
+                            $('#corporateGroupId').val(selectedValue);
+                           }
+                        </script>
                     </td>
                 </tr>
             </table>
@@ -65,7 +76,7 @@
                 <th>SECOND NAME</th>
                 <th>EMAIL</th>
                 <th>CREATE DATE</th>
-                <th>CORPORATE GROUP ID</th>
+                <th>CORPORATE GROUP</th>
             </tr>
             <c:forEach items="${users}" var="user">
             <tr>
@@ -85,7 +96,7 @@
                     <c:out value="${user.createdDate}" />
                 </td>
                 <td>
-                   <c:out value="${user.corporateGroup.id}" />
+                   <c:out value="${user.corporateGroup.name}" />
                 </td>
             </tr>
             </c:forEach>
