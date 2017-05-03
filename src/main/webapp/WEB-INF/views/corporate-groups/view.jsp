@@ -9,6 +9,8 @@
 <html lang="en">
 <head>
     <title>Corporate Groups</title>
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
 </head>
 <body>
 <div class="container">
@@ -41,7 +43,7 @@
           </div>
         </div>
         <div class="panel panel-info">
-            <div class="panel-heading"><h2 class="form-heading">${corporateGroup.name} members:</h2><a href="${corporateGroupContextPath}/add/${corporateGroup.id}/user" class="btn btn-success" role="button">Add new Corporate Member</a></div>
+            <div class="panel-heading"><h2 class="form-heading">${corporateGroup.name} members:</h2><a href="${contextPath}/users/add-edit" class="btn btn-success" role="button">Add new Corporate Member</a></div>
                 <div class="panel-body">
                     <table class="table">
                         <tr>
@@ -70,8 +72,8 @@
                                 <c:out value="${user.createdDate}" />
                             </td>
                             <td>
-                                <a href="${corporateGroupContextPath}/view/${corporateGroup.id}" class="btn btn-info" role="button">View</a>
-                                <a href="${corporateGroupContextPath}/edit/${corporateGroup.id}" class="btn btn-warning" role="button">Edit</a>
+                                <!--<a href="${contextPath}/users/view/${user.id}" class="btn btn-info" role="button">View</a>-->
+                                <a href="${contextPath}/users/add-edit?id=${user.id}" class="btn btn-warning" role="button">Edit</a>
                                 <button class="btn btn-danger delete-user" dbid="${user.id}">Delete</button>
                             </td>
                         </tr>

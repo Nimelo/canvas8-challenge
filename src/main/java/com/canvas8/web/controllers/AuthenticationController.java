@@ -3,7 +3,7 @@ package com.canvas8.web.controllers;
 import com.canvas8.models.User;
 import com.canvas8.services.security.SecurityService;
 import com.canvas8.services.user.UserService;
-import com.canvas8.validators.UserValidator;
+import com.canvas8.validators.AuthenticationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -25,7 +25,7 @@ public class AuthenticationController {
     private SecurityService securityService;
 
     @Autowired
-    private UserValidator userValidator;
+    private AuthenticationValidator authenticationValidator;
 
     @Autowired
     private MessageSource credentialsSource;
@@ -39,7 +39,7 @@ public class AuthenticationController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-        userValidator.validate(userForm, bindingResult);
+        authenticationValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "registration";

@@ -9,6 +9,7 @@
 
     <http use-expressions="true">
         <access-denied-handler error-page="/403" />
+        <intercept-url pattern="/users/**" access="hasRole('USER')"/>
         <intercept-url pattern="/corporate-groups/**" access="hasRole('USER')"/>
         <intercept-url pattern="/admin/**" access="hasRole('ADMIN')"/>
         <intercept-url pattern="/" access="hasRole('USER')"/>

@@ -16,4 +16,6 @@ public interface UserService {
     Page<User> findByCorporateGroupId(CorporateGroup id, Pageable pageable);
 
     void remove(Integer userId);
+
+    User findById(Integer id);
 }

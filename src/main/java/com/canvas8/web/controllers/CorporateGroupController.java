@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -86,7 +87,7 @@ public class CorporateGroupController {
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String editPost(@ModelAttribute("corporateGroup") CorporateGroup corporateGroup, BindingResult bindingResult, Model model) {
-        corporateGroupValidator.validate(corporateGroup, bindingResult);
+        corporateGroupValidator.validateWithoutName(corporateGroup, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "corporate-groups/edit";
@@ -98,10 +99,9 @@ public class CorporateGroupController {
     }
 
     @RequestMapping(value = "/{id}/view")
-    public String view(@PathVariable(value = "id") Integer id, Model model, Pageable pageable) {
-
+    public String view(@PathVariable(value = "id") Integer id, Model model, Pageable pageable, HttpSession session) {
         CorporateGroup corporateGroup = corporateGroupService.findOne(id);
-
+        session.setAttribute("corporateGroup", corporateGroup);
         PageRequest adjustedPagable = new PageRequest(pageable.getPageNumber(), MAX_PAGING_SIZE_FOR_USERS, pageable.getSort());
         Page<User> users = userService.findByCorporateGroupId(corporateGroup, adjustedPagable);
         model.addAttribute("corporateGroup", corporateGroup);

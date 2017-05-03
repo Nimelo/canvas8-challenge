@@ -30,4 +30,8 @@ public class CorporateGroupValidator implements Validator {
             errors.rejectValue("name", "Duplicate.corporateGroupForm.name");
         }
     }
+
+    public void validateWithoutName(Object o, Errors erros){
+
+    }
 }
