@@ -1,1 +1,1 @@
-This project was a developer tech challenge prepared by [canvas8 company](https://www.canvas8.com/).
+This project is a developer tech challenge prepared by [canvas8 company](https://www.canvas8.com/).
