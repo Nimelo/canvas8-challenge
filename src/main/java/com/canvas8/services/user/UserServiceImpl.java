@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
 
         if (corporateGroupId == null || corporateGroupId.equals(0)) {
             return userRepository.findByFirstNameAndSecondNameAndEmail(firstName, secondName, email);
-        }else{
+        } else {
             return userRepository.findByFirstNameAndSecondNameAndEmailAndCorporateGroupId(firstName, secondName, email, corporateGroupId);
         }
 

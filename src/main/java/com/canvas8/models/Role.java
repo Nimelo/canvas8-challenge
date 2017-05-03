@@ -6,9 +6,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-/**
- * Created by mrnimelo on 30/04/17.
- */
 @Entity
 @Table(name = "ROLES")
 public class Role implements GrantedAuthority, Serializable {
@@ -29,7 +26,7 @@ public class Role implements GrantedAuthority, Serializable {
     private Set<User> users;
 
     @PreRemove
-    protected void preRemove(){
+    protected void preRemove() {
         for (User user : getUsers()) {
             user.getRoles().remove(this);
         }

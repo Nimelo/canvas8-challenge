@@ -7,11 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-
-/**
- * Created by mrnimelo on 02/05/17.
- */
 @Controller
 public class ErrorsController {
     @RequestMapping(value = "/403", method = RequestMethod.GET)
@@ -22,8 +17,7 @@ public class ErrorsController {
             model.addObject("roles", user.getRoles());
         } catch (Throwable t) {
             model.addObject("msg", "You do not have permission to access this page!");
-        }
-        finally {
+        } finally {
             return model;
         }
     }

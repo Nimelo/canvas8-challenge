@@ -2,8 +2,8 @@ package com.canvas8.web.controllers;
 
 import com.canvas8.models.CorporateGroup;
 import com.canvas8.models.User;
-import com.canvas8.services.user.UserService;
 import com.canvas8.services.corporateGroups.CorporateGroupServiceImpl;
+import com.canvas8.services.user.UserService;
 import com.canvas8.validators.CorporateGroupValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,9 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-/**
- * Created by mrnimelo on 02/05/17.
- */
 @Controller
 @Transactional
 @RequestMapping(value = "/corporate-groups")

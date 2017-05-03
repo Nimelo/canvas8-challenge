@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- * Created by mrnimelo on 02/05/17.
- */
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminController {

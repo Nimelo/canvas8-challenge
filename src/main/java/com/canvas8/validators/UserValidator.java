@@ -26,7 +26,7 @@ public class UserValidator implements Validator {
         User user = (User) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
-        if(!emailValidator.validate(user.getEmail())){
+        if (!emailValidator.validate(user.getEmail())) {
             errors.rejectValue("email", "Email.format");
         }
 

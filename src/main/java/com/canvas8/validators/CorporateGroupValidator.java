@@ -8,9 +8,6 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-/**
- * Created by mrnimelo on 02/05/17.
- */
 @Component
 public class CorporateGroupValidator implements Validator {
     @Autowired

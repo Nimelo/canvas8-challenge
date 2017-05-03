@@ -5,7 +5,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +17,7 @@ public class MappingAuthenticationFailureHandler implements AuthenticationFailur
     private String defaultFailureUrl;
     private static final Map<Class, String> execptionMap;
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+
     static {
         execptionMap = new HashMap<>();
         execptionMap.put(AccountExpiredException.class, "account.expired");

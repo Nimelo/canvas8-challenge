@@ -1,14 +1,8 @@
 package com.canvas8.web.controllers.internal.models;
 
-import com.canvas8.models.CorporateGroup;
-
 import java.io.Serializable;
-import java.util.List;
 
-/**
- * Created by mrnimelo on 03/05/17.
- */
-public class UserSearchModel implements Serializable{
+public class UserSearchModel implements Serializable {
     private String firstName;
     private String secondName;
     private String email;

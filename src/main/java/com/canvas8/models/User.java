@@ -13,9 +13,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
-/**
- * Created by mrnimelo on 30/04/17.
- */
 @Entity
 @Table(name = "USERS")
 public class User implements UserDetails, Serializable {

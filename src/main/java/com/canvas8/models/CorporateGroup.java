@@ -1,7 +1,5 @@
 package com.canvas8.models;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -10,12 +8,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-/**
- * Created by mrnimelo on 30/04/17.
- */
 @Entity
 @Table(name = "CORPORATE_GROUPS")
-public class CorporateGroup implements Serializable{
+public class CorporateGroup implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CG_ID", unique = true, nullable = false)
@@ -39,7 +34,7 @@ public class CorporateGroup implements Serializable{
     private Set<User> users;
 
     @PrePersist
-    protected void onCreate(){
+    protected void onCreate() {
         createdDate = new Date();
     }
 
