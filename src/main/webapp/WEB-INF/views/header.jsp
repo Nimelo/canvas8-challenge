@@ -44,6 +44,7 @@
          <ul class="nav navbar-nav">
            <li><a href="/corporate-groups/list">Corporate Group List</a></li>
            <li><a href="/admin/settings">Admin settings</a></li>
+           <li><a href="/users/search">Users search</a></li>
          </ul>
          <ul class="nav navbar-nav navbar-right">
             <c:if test="${pageContext.request.userPrincipal.name != null}">

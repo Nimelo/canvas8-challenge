@@ -2,9 +2,10 @@ package com.canvas8.services.user;
 
 import com.canvas8.models.CorporateGroup;
 import com.canvas8.models.Role;
+import com.canvas8.models.User;
 import com.canvas8.repositories.RoleRepository;
 import com.canvas8.repositories.UserRepository;
-import com.canvas8.models.User;
+import com.canvas8.utilis.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -46,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void remove(Integer userId) {
-        if(userRepository.exists(userId)){
+        if (userRepository.exists(userId)) {
             userRepository.delete(userId);
         }
     }
@@ -55,4 +57,19 @@ public class UserServiceImpl implements UserService {
     public User findById(Integer id) {
         return userRepository.findOne(id);
     }
+
+    @Override
+    public List<User> findByFirstNameAndSecondNameAndEmailAndCorporateGroupId(String firstName, String secondName, String email, Integer corporateGroupId) {
+        firstName = StringUtils.addDBLikeParamAttributes(firstName);
+        secondName = StringUtils.addDBLikeParamAttributes(secondName);
+        email = StringUtils.addDBLikeParamAttributes(email);
+
+        if (corporateGroupId == null) {
+            return userRepository.findByFirstNameAndSecondNameAndEmail(firstName, secondName, email);
+        }else{
+            return userRepository.findByFirstNameAndSecondNameAndEmailAndCorporateGroupId(firstName, secondName, email, corporateGroupId);
+        }
+
+    }
+
 }

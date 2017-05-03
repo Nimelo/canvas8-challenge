@@ -2,17 +2,22 @@ package com.canvas8.web.controllers;
 
 import com.canvas8.models.CorporateGroup;
 import com.canvas8.models.User;
+import com.canvas8.services.corporateGroups.CorporateGroupService;
 import com.canvas8.services.user.UserService;
 import com.canvas8.validators.AuthenticationValidator;
 import com.canvas8.validators.UserValidator;
+import com.canvas8.web.controllers.internal.models.UserSearchModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/users")
@@ -26,6 +31,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CorporateGroupService corporateGroupService;
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
@@ -49,7 +56,7 @@ public class UserController {
             user.setPassword(dbUser.getPassword());
         }
         userValidator.validate(user, bindingResult);
-        if(user.getId() == 0){
+        if (user.getId() == 0) {
             authenticationValidator.validate(user, bindingResult);
         }
 
@@ -63,5 +70,29 @@ public class UserController {
         userService.save(user);
 
         return "redirect:/corporate-groups/" + corporateGroup.getId() + "/view";
+    }
+
+    @RequestMapping(value = "/search")
+    public String search(Model model) {
+        List<CorporateGroup> corporateGroups = corporateGroupService.findAll();
+        model.addAttribute("searchQuery", new UserSearchModel());
+        model.addAttribute("corporateGroups", corporateGroups);
+
+        return "users/search";
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String search(@ModelAttribute("searchQuery") UserSearchModel userSearchModel, @ModelAttribute("corporateGroups") ArrayList<CorporateGroup> corporateGroups, Model model) {
+
+        List<User> result = userService.findByFirstNameAndSecondNameAndEmailAndCorporateGroupId(
+                userSearchModel.getFirstName(),
+                userSearchModel.getSecondName(),
+                userSearchModel.getEmail(),
+                userSearchModel.getCorporateGroupId());
+
+        model.addAttribute("searchQuery", userSearchModel);
+        model.addAttribute("corporateGroups", corporateGroups);
+        model.addAttribute("users", result);
+        return "users/search";
     }
 }
